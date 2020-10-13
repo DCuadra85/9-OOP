@@ -12,55 +12,64 @@ const render = require("./lib/htmlRenderer");
 
 // const manager = new Manager(name, email)
 
-function employeeQuestions() {
-    return inquirer.prompt([
-        {
-            type: "list",
-            choices: ["Manager", "Engineer", "Intern"],
-            name: "role",
-        },
-        {
-            type: "input",
-            message: "What is your name?",
-            name: "name",
-        },
-        {
-            type: "input",
-            message: "What is your email?",
-            name: "email",
-        },
-        {
-            type: "input",
-            message: "What is your github",
-            name: "github",
-            when: 
+const questionList = [
+    {
+        type: "list",
+        choices: ["Manager", "Engineer", "Intern"],
+        name: "role",
+        message: "What type of employee are you adding?"
+    },
+    {
+        type: "input",
+        message: "What is your name?",
+        name: "name",
+    },
+    {
+        type: "input",
+        message: "What is your email?",
+        name: "email",
+    },
+    {
+        type: "input",
+        message: "What is your github",
+        name: "github",
+        when:
             (answers) => answers.role === "Engineer",
-        },
-        {
-            type: "input",
-            message: "What is your office number?",
-            name: "officenumber",
-            when: 
+    },
+    {
+        type: "input",
+        message: "What is your office number?",
+        name: "officenumber",
+        when:
             (answers) => answers.role === "Manager",
-        },
-        {
-            type: "input",
-            message: "What is your school?",
-            name: "school",
-            when: 
+    },
+    {
+        type: "input",
+        message: "What is your school?",
+        name: "school",
+        when:
             (answers) => answers.role === "Intern"
-        },
-        {
-            type: "confirm",
-            name: "newEmployee",
-            message: "Do you want to add another employee?",
-        },
-    ]).then(answers => {
-        userInput.push(answers)
+    },
+    {
+        type: "confirm",
+        name: "newEmployee",
+        message: "Do you want to add another employee?",
+    },
+]
+
+function questionStart(){
+    inquirer.prompt(questionList)
+    .then(answers =>{
+        responses.push(answers)
     })
-    // .then(answers)
 }
-// Make a master class of employee (name tbd), have the 
+
+    // .then(answers => {
+    //     userInput.push(answers)
+    // })
+    // .then(answers)
+
+// Make a master class of employee (name tbd), have the
 // employee/engineer/manager/intern inherit this class and use the 
 // unique identifiers.
 
