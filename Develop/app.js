@@ -10,7 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const manager = new Manager(name, email)
+// const manager = new Manager(name, email)
 
 function employeeQuestions() {
     return inquirer.prompt([
@@ -50,7 +50,15 @@ function employeeQuestions() {
             when: 
             (answers) => answers.role === "Intern"
         },
-    ])
+        {
+            type: "confirm",
+            name: "newEmployee",
+            message: "Do you want to add another employee?",
+        },
+    ]).then(answers => {
+        userInput.push(answers)
+    })
+    // .then(answers)
 }
 // Make a master class of employee (name tbd), have the 
 // employee/engineer/manager/intern inherit this class and use the 
