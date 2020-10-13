@@ -7,4 +7,20 @@ class Employee {
         this.id = id;
     }
 
-}
+    getName() {
+        return this.name;
+    };
+
+    getRole() {
+        return this.role;
+    }
+
+    getEmail() {
+        return this.email;
+    }
+
+    getId() {
+        return this.id;
+    }
+};
+module.exports = Employee
