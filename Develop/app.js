@@ -10,6 +10,51 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const manager = new Manager(name, email)
+
+function employeeQuestions() {
+    return inquirer.prompt([
+        {
+            type: "list",
+            choices: ["Manager", "Engineer", "Intern"],
+            name: "role",
+        },
+        {
+            type: "input",
+            message: "What is your name?",
+            name: "name",
+        },
+        {
+            type: "input",
+            message: "What is your email?",
+            name: "email",
+        },
+        {
+            type: "input",
+            message: "What is your github",
+            name: "github",
+            when: 
+            (answers) => answers.role === "Engineer",
+        },
+        {
+            type: "input",
+            message: "What is your office number?",
+            name: "officenumber",
+            when: 
+            (answers) => answers.role === "Manager",
+        },
+        {
+            type: "input",
+            message: "What is your school?",
+            name: "school",
+            when: 
+            (answers) => answers.role === "Intern"
+        },
+    ])
+}
+// Make a master class of employee (name tbd), have the 
+// employee/engineer/manager/intern inherit this class and use the 
+// unique identifiers.
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
