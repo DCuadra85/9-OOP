@@ -58,16 +58,28 @@ const questionList = [
     },
 ]
 
-function questionStart(){
+function questionStart() {
     inquirer.prompt(questionList)
-    .then(answers =>{
-        responses.push(answers)
-        if(answers.addEmployee){
-            questionStart();
-        } else {
-            
-        }
-    })
+        .then(answers => {
+            responses.push(answers)
+            if (answers.addEmployee) {
+                questionStart();
+            } else {
+                console.log(render(responses))
+                const team = responses.map(answers => {
+                    switch (answers.role) {
+                        case "Engineer":
+                            return new Engineer(answers.name, answers.id, answers.email, answers.github)
+                        case "Intern":
+                            return new Intern(answers.name, answers.id, answers.email, answers.school)
+                        case "Manager":
+                            return new Manager(answers.name, answers.id, answers.email, answers.officenumber)
+                        default:
+                            throw "Choose an Employee"
+                    }
+                })
+            }
+        })
 }
 
 questionStart()
