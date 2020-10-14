@@ -77,7 +77,18 @@ function questionStart() {
                         default:
                             throw "Choose an Employee"
                     }
-                })
+                });
+                fs.writeFile(outputPath, render(team), err => {
+                    if(err){
+                        throw err
+                    }
+                    console.log("Write Successful")
+                });
+            }
+        })
+        .catch(err => {
+            if(err){
+                console.log("Error, ", err);
             }
         })
 }
