@@ -22,6 +22,11 @@ const questionList = [
     },
     {
         type: "input",
+        message: "What is your employee number?",
+        name: "id",
+    },
+    {
+        type: "input",
         message: "What is your name?",
         name: "name",
     },
@@ -62,11 +67,11 @@ function questionStart() {
     inquirer.prompt(questionList)
         .then(answers => {
             responses.push(answers)
-            if (answers.addEmployee) {
+            if (answers.newEmployee) {
                 questionStart();
             } else {
-                console.log(render(responses))
-                const team = responses.map(answers => {
+                // console.log(render(responses))
+                const teams = responses.map(answers => {
                     switch (answers.role) {
                         case "Engineer":
                             return new Engineer(answers.name, answers.id, answers.email, answers.github)
@@ -78,8 +83,9 @@ function questionStart() {
                             throw "Choose an Employee"
                     }
                 });
-                fs.writeFile(outputPath, render(team), err => {
-                    if(err){
+                fs.writeFile(outputPath, render(teams), err => {
+                    if (err) {
+                        console.log(render(teams));
                         throw err
                     }
                     console.log("Write Successful")
@@ -87,13 +93,14 @@ function questionStart() {
             }
         })
         .catch(err => {
-            if(err){
+            if (err) {
                 console.log("Error, ", err);
             }
         })
 }
 
 questionStart()
+
     // .then(answers => {
     //     userInput.push(answers)
     // })
