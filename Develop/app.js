@@ -12,6 +12,7 @@ const render = require("./lib/htmlRenderer");
 
 // const manager = new Manager(name, email)
 
+const responses = []
 const questionList = [
     {
         type: "list",
@@ -61,9 +62,15 @@ function questionStart(){
     inquirer.prompt(questionList)
     .then(answers =>{
         responses.push(answers)
+        if(answers.addEmployee){
+            questionStart();
+        } else {
+            
+        }
     })
 }
 
+questionStart()
     // .then(answers => {
     //     userInput.push(answers)
     // })
